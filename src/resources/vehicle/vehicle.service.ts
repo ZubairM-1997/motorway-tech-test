@@ -55,20 +55,6 @@ class VehicleService {
       throw new Error("Unable to find vehicle");
     }
   }
-
-  // public async getVehicleList(): Promise<VehicleInterface[]> {
-  //   try {
-  //     const [vehicleList] = (await this.dbClient.query(
-  //       "SELECT * FROM vehicles"
-  //     )) as [Vehicle[], any];
-
-  //     return vehicleList;
-  //   } catch (error) {
-  //     console.log(error);
-  //     // throw new Error("Unable to find vehicle");
-  //     return [];
-  //   }
-  // }
 }
 
 export default VehicleService;
