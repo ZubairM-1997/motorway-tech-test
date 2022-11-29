@@ -8,10 +8,14 @@ import helmet from "helmet";
 import { createDbConnection, DbConf } from "./sequelize";
 import { Sequelize } from "sequelize";
 import VehicleController from "./resources/vehicle/vehicle.controller";
+import swaggerUi from 'swagger-ui-express'
+import YAML from 'yamljs'
 
 export interface AppConfig {
   db: DbConf;
 }
+
+const swaggerDocument = YAML.load('./swagger.yaml')
 
 class App {
   public express: Application;
@@ -33,6 +37,7 @@ class App {
     this.express.use(bodyParser.json());
     this.express.use(bodyParser.urlencoded({ extended: false }));
     this.express.use(compression());
+    this.express.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
   }
 
   private initialiseControllers(dbClient: Sequelize): void {

@@ -38,4 +38,5 @@ The server will then start on http://localhost:7000
 The main endpoint of focus will be http://localhost:7000/api/vehicles/:vehicleId
 
 ![flow_diagram](flow_diagram.png)
+![swagger_doc](swagger_doc.png)
 

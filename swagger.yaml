@@ -1,0 +1,105 @@
+openapi: 3.0.0
+info:
+    title: Motorway Express API
+    version: 0.1.9
+servers:
+    - url: http://localhost:7000/api
+paths:
+    /vehicles/{vehicleId}:
+        get:
+            summary: Returns vehicle information
+            parameters: 
+                in: path
+                name: vehicleId
+            schema: 
+                type: integer
+                required: true
+                description: Numeric ID of vehicle to get
+
+            requestBody: 
+                required: true
+                content: 
+                  application/json:
+                    schema: 
+                      $ref: '#/components/schemas/TimeStamp'
+
+            responses:
+                '200': # status code
+                    description: Vehicle information has been retrieved
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                $ref: '#/components/schemas/VehicleInformation'
+                '404': # status code
+                    description: Cannot find resource
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties: 
+                                  message: 
+                                    type: string
+                                    example: "Vehicle not found"
+                '400': # status code
+                    description: Incorrect vehicleId format or timestamp not entered
+                    content:
+                        application/json:
+                            schema:
+                                oneOf: 
+                                  $ref: '#/definitions/vehicleId'
+                                  $ref: '#/definitions/timestamp'
+                            examples: 
+                              vehicleId:
+                                  summary: error if incorrect format of vehicleId is entered
+                                  value: '{vehicleId} is not in the correct format'
+
+
+                              timestamp:
+                                  summary: error if no timestamp is entered
+                                  value: 
+                                    error: 'timestamp is required'
+
+components:
+    schemas:
+        TimeStamp:
+            type: object
+            properties:
+                timestamp:
+                    type: string
+                    example: "2022-09-10 10:23:54+00"
+        
+        VehicleInformation: 
+          type: object 
+          properties: 
+            id: 
+              type: integer
+              example: 1
+            make:
+              type: string
+            model: 
+              type: string
+            status: 
+              type: object
+              $ref: '#/definitions/status'
+
+definitions:
+  status:
+    type: object
+    properties:
+      state: 
+        type: string
+
+      timestamp: 
+        type: string
+  vehicleId:
+    type: string
+
+  timestamp:
+    type: object
+    properties:
+      errors:
+        type: array
+          content: 
+            type: string
+            example: 'timestamp is required' 
