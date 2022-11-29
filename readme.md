@@ -34,6 +34,7 @@ DB_NAME=motorway
 5) to see all the tests that are passing, enter the command `npm run test` from the root of the project
 
 The server will then start on http://localhost:7000
+
 The main endpoint of focus will be http://localhost:7000/api/vehicles/:vehicleId
 
 ![flow_diagram](flow_diagram.png)
