@@ -9,10 +9,10 @@ paths:
         get:
             summary: Returns vehicle information
             parameters: 
-                in: path
+              - in: path
                 name: vehicleId
-            schema: 
-                type: integer
+                schema: 
+                  type: integer
                 required: true
                 description: Numeric ID of vehicle to get
 
